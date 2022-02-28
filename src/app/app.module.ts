@@ -5,7 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+//#region Components
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+//Eendregion
 
 //#region NgxBootstrap
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -20,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [
     AppComponent,
     HomePageComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
