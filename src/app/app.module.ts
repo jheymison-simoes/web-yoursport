@@ -5,6 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//#region
+import { ThemeService } from './services/theme/theme.service';
+//#endregion
+
 
 //#region Components
 import { HomePageComponent } from './components/home-page/home-page.component';
@@ -34,7 +38,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     TooltipModule.forRoot(),
   ],
-  providers: [],
+  providers: [ThemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
