@@ -4,10 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
+//#region LazyLoading Import
+const loadChildrenRegister = () => import('./modules/register/register.module').then(r => r.RegisterModule);
+//#endregion
+
 const routes: Routes = [
-  { path: 'home', component: HomePageComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', component: NotFoundComponent}
+  { path: 'home', component: HomePageComponent },
+  { path: 'register', loadChildren: loadChildrenRegister },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

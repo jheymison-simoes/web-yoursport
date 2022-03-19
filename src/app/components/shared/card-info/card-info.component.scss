@@ -1,0 +1,20 @@
+.card-info {
+  display: flex;
+  justify-content: center;
+
+  .mat-card {
+    width: 100%;
+    max-width: 400px;
+  }
+  .card-info-title {
+    font-weight: 500;
+  }
+  .card-info-description {
+    font-size: .9em;
+  }
+}
+
+.icon-info {
+  font-size: 30px;
+  color: #9179EF;
+}
