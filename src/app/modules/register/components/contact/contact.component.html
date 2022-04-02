@@ -2,14 +2,14 @@
   <form class="w-100" novalidate [formGroup]="registerForm">
     <mat-form-field
       class="input-contact mb-1"
-      appearance="outline"
-      autocomplete="off">
+      appearance="outline">
       <mat-label>Seu nome</mat-label>
       <input matInput
         formControlName="name"
         id="name"
         placeholder="Ex. João Santos"
         [value]="registerForm.get('name')?.value"
+        autocomplete="off"
       >
       <mat-error class="mb-2"
         *ngIf="formCheckTouchedOrDirty('name')"
@@ -27,7 +27,6 @@
     <mat-form-field
       class="input-contact mb-1"
       appearance="outline"
-      autocomplete="off"
     >
       <mat-label>Seu telefone</mat-label>
       <input matInput
@@ -36,6 +35,7 @@
         placeholder="(00) 0 0000-0000"
         [value]="registerForm.get('numberPhone')?.value | mask: '(00) 0 0000-0000'"
         mask="(00) 0 0000-0000"
+        autocomplete="off"
       >
       <mat-error class="mb-2"
         *ngIf="formCheckTouchedOrDirty('numberPhone')"

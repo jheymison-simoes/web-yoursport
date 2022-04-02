@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SpinnerComponent } from 'src/app/components/shared/spinner/spinner.component';
 import { RegisterRouteEnum } from 'src/app/enumerations/register-route-enum.enum';
 import { Contact } from 'src/app/models/register/contact';
-import { ContactComponent } from '../contact/contact.component';
-
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-register-initial',
   templateUrl: './register-initial.component.html',
@@ -20,7 +20,7 @@ export class RegisterInitialComponent implements OnInit {
   contact: Contact;
   routeEnum = RegisterRouteEnum;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.getCurrentRouter();
@@ -33,13 +33,19 @@ export class RegisterInitialComponent implements OnInit {
   }
 
   async advance(){
+    this.spinner.show();
     this.defineRoute(true);
     await this.router.navigate([`register/initial/${this.currentRoute}`]);
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 5000);
   }
 
   async back(){
+    this.spinner.show();
     this.defineRoute(false);
     await this.router.navigate([`register/initial/${this.currentRoute}`]);
+    this.spinner.hide();
   }
 
   //#region Methods Privates
