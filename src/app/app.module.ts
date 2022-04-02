@@ -28,6 +28,7 @@ import { RegisterModule } from './modules/register/register.module';
 
 //#region Others
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { CustomFormsModule } from 'ng2-validation';
 //Eendregion
 
@@ -50,7 +51,8 @@ import { CustomFormsModule } from 'ng2-validation';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    CustomFormsModule
+    CustomFormsModule,
+    NgxSpinnerModule
   ],
   providers: [ThemeService],
   bootstrap: [AppComponent],
