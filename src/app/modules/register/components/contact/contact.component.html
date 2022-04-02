@@ -1,13 +1,53 @@
 <div class="contact-component mt-4 text-center">
-  <form class="w-100">
-    <mat-form-field class="input-contact" appearance="outline" autocomplete="off">
+  <form class="w-100" novalidate [formGroup]="registerForm">
+    <mat-form-field
+      class="input-contact mb-1"
+      appearance="outline"
+      autocomplete="off">
       <mat-label>Seu nome</mat-label>
-      <input matInput placeholder="Ex. João Santos">
+      <input matInput
+        formControlName="name"
+        id="name"
+        placeholder="Ex. João Santos"
+        [value]="registerForm.get('name')?.value"
+      >
+      <mat-error class="mb-2"
+        *ngIf="formCheckTouchedOrDirty('name')"
+      >
+        <span *ngIf="formGetErrors('name', 'required')">
+          {{formGetMessageErros('name', 'required')}}
+        </span>
+        <span *ngIf="!formGetErrors('name', 'minLength') &&
+                     !formGetErrors('name', 'required')">
+          {{formGetMessageErros('name', 'minLength')}}
+        </span>
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="input-contact" appearance="outline" autocomplete="off">
+    <mat-form-field
+      class="input-contact mb-1"
+      appearance="outline"
+      autocomplete="off"
+    >
       <mat-label>Seu telefone</mat-label>
-      <input type="text" matInput placeholder="(00) 0 0000-0000" mask="(00) 0 0000-0000">
+      <input matInput
+        formControlName="numberPhone"
+        type="text"
+        placeholder="(00) 0 0000-0000"
+        [value]="registerForm.get('numberPhone')?.value | mask: '(00) 0 0000-0000'"
+        mask="(00) 0 0000-0000"
+      >
+      <mat-error class="mb-2"
+        *ngIf="formCheckTouchedOrDirty('numberPhone')"
+      >
+        <span *ngIf="formGetErrors('numberPhone', 'required')">
+          {{formGetMessageErros('numberPhone', 'required')}}
+        </span>
+        <span *ngIf="!formGetErrors('numberPhone', 'required') &&
+                     !formGetErrors('numberPhone', 'minLength')">
+          {{formGetMessageErros('numberPhone', 'minLength')}}
+        </span>
+      </mat-error>
     </mat-form-field>
   </form>
 </div>

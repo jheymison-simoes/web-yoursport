@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Input} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RegisterRouteEnum } from 'src/app/enumerations/register-route-enum.enum';
+import { Contact } from 'src/app/models/register/contact';
 
 @Component({
   selector: 'app-contact',
@@ -7,9 +10,78 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactComponent implements OnInit {
 
-  constructor() { }
+  @Input('contact') contact: Contact;
+  @Output() onGetContact: EventEmitter<Contact> = new EventEmitter();
 
-  ngOnInit() {
+  registerForm: FormGroup;
+  validationMessages: any;
+  formIsValid: boolean;
+
+  constructor(private formBuider: FormBuilder) {
+    this.defineValidationMessages();
   }
 
+  ngOnInit() {
+    this.defineFormBuilder();
+  }
+
+  async ngAfterViewInit(): Promise<void> {
+    await this.emitEventOnGetContact();
+  }
+
+  formGetErrors(propertyName: string, propertyError: string): boolean {
+    let result = this.registerForm.get(propertyName)?.errors?.[propertyError] ?? false;
+    return result;
+  }
+
+  formCheckTouchedOrDirty(propertyName: string): boolean{
+    let result = (this.registerForm.get(propertyName)?.dirty ||
+                  this.registerForm.get(propertyName)?.touched) ?? false;
+    return result
+  }
+
+  formGetMessageErros(propertyName: string, propertyError: string): string {
+    let result = this.validationMessages[propertyName][propertyError];
+    return result;
+  }
+
+  //#region Methods Privates
+  private defineValidationMessages(){
+    this.validationMessages = {
+      name: {
+        required: 'O nome é obrigatório!',
+        minLength: 'O nome deve ter pelo menos 3 carecteres!'
+      },
+      numberPhone: {
+        required: 'O número de telefone é obrigatório!',
+        minLength: 'O múmero de telefone deve ter pelo menos 11 números!'
+      }
+    }
+  }
+
+  private defineFormBuilder(){
+    this.registerForm = this.formBuider.group({
+      name: [this.contact?.name, [Validators.required, Validators.minLength(3)]],
+      numberPhone: [this.contact?.numberPhone, [Validators.required, Validators.minLength(11)]]
+    });
+  }
+
+  private async emitEventOnGetContact(){
+    this.registerForm.statusChanges.subscribe(res => {
+      if(res == 'INVALID'){
+        this.contact = new Contact();
+        this.contact.formValid = false;
+        return this.onGetContact.emit(this.contact);
+      } else {
+        this.submitForm();
+        this.contact.formValid = true;
+        return this.onGetContact.emit(this.contact);
+      }
+    });
+  }
+
+  private submitForm() {
+    this.contact = Object.assign({}, this.contact, this.registerForm.value);
+  }
+  //#endregion
 }
