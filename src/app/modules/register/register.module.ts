@@ -1,9 +1,11 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RegisterRoutingModule } from './register-routing.module';
@@ -15,8 +17,9 @@ import { LoginPasswordComponent } from './components/login-password/login-passwo
 import { SharedModule } from 'src/app/components/shared/shared.module';
 
 import { NgxMaskModule } from 'ngx-mask';
-import { MatButtonModule } from '@angular/material/button';
 import { NgxSpinnerModule } from "ngx-spinner";
+
+import { RegisterService } from './services/register.service';
 
 @NgModule({
   declarations:
@@ -28,6 +31,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     RegisterRoutingModule,
     SharedModule,
     MatFormFieldModule,
@@ -36,7 +40,12 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
     MatButtonModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatSelectModule,
+    MatAutocompleteModule
+  ],
+  providers: [
+    RegisterService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

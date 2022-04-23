@@ -1,3 +1,51 @@
-<p>
-  localization works!
-</p>
+<div class="localization-component mt-4 text-center">
+  <form class="w-100" novalidate [formGroup]="localizationForm">
+    <mat-form-field
+      class="input-select-state mb-1"
+      appearance="outline">
+      <mat-label>Seu Estado</mat-label>
+      <mat-select
+        name="state"
+        formControlName="state"
+        (selectionChange)="getCities($event.value)">
+        <mat-option>Selecione uma opção</mat-option>
+        <mat-option
+          *ngFor="let state of states"
+          [value]="state?.initials"
+        >
+          {{state?.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error class="mb-2"
+        *ngIf="formCheckTouchedOrDirty('state')"
+      >
+        <span *ngIf="formGetErrors('state', 'required')">
+          {{formGetMessageErrors('state', 'required')}}
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field
+      class="input-select-state mb-1"
+      appearance="outline">
+      <mat-label>Sua Cidade</mat-label>
+      <input type="text"
+        matInput
+        formControlName="city"
+        [matAutocomplete]="auto"
+      >
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let city of citiesFiltered | async" [value]="city.name">
+          {{city.name}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error class="mb-2"
+        *ngIf="formCheckTouchedOrDirty('city')"
+      >
+        <span *ngIf="formGetErrors('city', 'required')">
+          {{formGetMessageErrors('city', 'required')}}
+        </span>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>

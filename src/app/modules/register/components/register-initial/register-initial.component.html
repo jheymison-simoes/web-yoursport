@@ -7,10 +7,18 @@
       <app-card-info [title]="title" [description]="description"></app-card-info>
     </div>
 
-    <app-contact *ngIf="currentRoute == routeEnum.Contact"
-                 [contact]="contact"
-                 (onGetContact)="getContact($event)">
+    <app-contact class="w-100"
+      *ngIf="currentRoute == routeEnum.Contact"
+      [contact]="contact"
+      (onGetContact)="getContact($event)">
     </app-contact>
+
+    <app-localization class="w-100"
+      *ngIf="currentRoute == routeEnum.Localization"
+      [localization]="localization"
+      (onActiveSpinner)="showSpinner($event)"
+      (onGetLocalization)="getLocalization($event)">
+    </app-localization>
 
     <div class="info flex-between">
       <button mat-stroked-button

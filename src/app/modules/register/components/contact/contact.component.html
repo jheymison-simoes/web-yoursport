@@ -15,11 +15,11 @@
         *ngIf="formCheckTouchedOrDirty('name')"
       >
         <span *ngIf="formGetErrors('name', 'required')">
-          {{formGetMessageErros('name', 'required')}}
+          {{formGetMessageErrors('name', 'required')}}
         </span>
         <span *ngIf="!formGetErrors('name', 'minLength') &&
                      !formGetErrors('name', 'required')">
-          {{formGetMessageErros('name', 'minLength')}}
+          {{formGetMessageErrors('name', 'minLength')}}
         </span>
       </mat-error>
     </mat-form-field>
@@ -41,11 +41,11 @@
         *ngIf="formCheckTouchedOrDirty('numberPhone')"
       >
         <span *ngIf="formGetErrors('numberPhone', 'required')">
-          {{formGetMessageErros('numberPhone', 'required')}}
+          {{formGetMessageErrors('numberPhone', 'required')}}
         </span>
         <span *ngIf="!formGetErrors('numberPhone', 'required') &&
                      !formGetErrors('numberPhone', 'minLength')">
-          {{formGetMessageErros('numberPhone', 'minLength')}}
+          {{formGetMessageErrors('numberPhone', 'minLength')}}
         </span>
       </mat-error>
     </mat-form-field>
