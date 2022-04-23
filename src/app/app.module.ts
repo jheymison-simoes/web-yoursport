@@ -4,6 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 //#region Angular Material
 import { MatSliderModule } from '@angular/material/slider';
@@ -52,7 +54,9 @@ import { CustomFormsModule } from 'ng2-validation';
     FormsModule,
     ReactiveFormsModule,
     CustomFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   providers: [ThemeService],
   bootstrap: [AppComponent],

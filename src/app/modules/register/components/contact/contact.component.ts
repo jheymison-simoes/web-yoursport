@@ -1,7 +1,7 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterRouteEnum } from 'src/app/enumerations/register-route-enum.enum';
-import { Contact } from 'src/app/models/register/contact';
+
+import { Contact } from 'src/app/modules/register/models/contact';
 
 @Component({
   selector: 'app-contact',
@@ -17,7 +17,7 @@ export class ContactComponent implements OnInit {
   validationMessages: any;
   formIsValid: boolean;
 
-  constructor(private formBuider: FormBuilder) {
+  constructor(private formBuilder: FormBuilder) {
     this.defineValidationMessages();
   }
 
@@ -40,7 +40,7 @@ export class ContactComponent implements OnInit {
     return result
   }
 
-  formGetMessageErros(propertyName: string, propertyError: string): string {
+  formGetMessageErrors(propertyName: string, propertyError: string): string {
     let result = this.validationMessages[propertyName][propertyError];
     return result;
   }
@@ -60,7 +60,7 @@ export class ContactComponent implements OnInit {
   }
 
   private defineFormBuilder(){
-    this.registerForm = this.formBuider.group({
+    this.registerForm = this.formBuilder.group({
       name: [this.contact?.name, [Validators.required, Validators.minLength(3)]],
       numberPhone: [this.contact?.numberPhone, [Validators.required, Validators.minLength(11)]]
     });
@@ -70,11 +70,11 @@ export class ContactComponent implements OnInit {
     this.registerForm.statusChanges.subscribe(res => {
       if(res == 'INVALID'){
         this.contact = new Contact();
-        this.contact.formValid = false;
+        this.contact.formIsValid = false;
         return this.onGetContact.emit(this.contact);
       } else {
         this.submitForm();
-        this.contact.formValid = true;
+        this.contact.formIsValid = true;
         return this.onGetContact.emit(this.contact);
       }
     });
