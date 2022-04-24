@@ -20,6 +20,12 @@
       (onGetLocalization)="getLocalization($event)">
     </app-localization>
 
+    <app-login-password class="w-100"
+      *ngIf="currentRoute == routeEnum.LoginPassword"
+      [loginRegister]="loginRegister"
+      (onGetLoginRegister)="getLoginRegister($event)">
+    </app-login-password>
+
     <div class="info flex-between">
       <button mat-stroked-button
         color="primary"
@@ -32,7 +38,7 @@
         color="primary"
         [disabled]="advanceBloquedBtn"
         (click)="advance()">
-        AVANÇAR
+        {{currentRoute == routeEnum.LoginPassword ? 'CONCLUIR' : 'AVANÇAR'}}
         <i class="fas fa-angle-right ms-2"></i>
       </button>
     </div>
