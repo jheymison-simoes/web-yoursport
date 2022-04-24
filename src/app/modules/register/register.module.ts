@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { RegisterRoutingModule } from './register-routing.module';
 
@@ -42,7 +44,9 @@ import { RegisterService } from './services/register.service';
     MatButtonModule,
     NgxSpinnerModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatIconModule,
+    MatProgressBarModule
   ],
   providers: [
     RegisterService

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Contact } from 'src/app/modules/register/models/contact';
@@ -8,7 +8,7 @@ import { Contact } from 'src/app/modules/register/models/contact';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, AfterViewInit {
 
   @Input('contact') contact: Contact;
   @Output() onGetContact: EventEmitter<Contact> = new EventEmitter();

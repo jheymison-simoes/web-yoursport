@@ -1,3 +1,4 @@
+import { LoginRegister } from './../../models/loginRegister';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -22,7 +23,9 @@ export class RegisterInitialComponent implements OnInit {
   backBloquedBtn: boolean = true;
   contact: Contact;
   localization: Localization;
+  loginRegister: LoginRegister;
   routeEnum = RegisterRouteEnum;
+
 
   constructor(private router: Router, private spinner: NgxSpinnerService) { }
 
@@ -33,27 +36,32 @@ export class RegisterInitialComponent implements OnInit {
 
   async getContact(contact: Contact){
     if(contact?.formIsValid) this.contact = contact;
-    this.advanceBloquedBtn = !contact.formIsValid;
+    this.advanceBloquedBtn = !contact?.formIsValid;
   }
 
   async getLocalization(localization: Localization){
     if(localization?.formIsValid) this.localization = localization;
-    this.advanceBloquedBtn = !localization.formIsValid;
+    this.advanceBloquedBtn = !localization?.formIsValid;
+  }
+
+  async getLoginRegister(loginRegister: LoginRegister){
+    if(loginRegister?.formIsValid) this.loginRegister = loginRegister;
+    this.advanceBloquedBtn = !loginRegister?.formIsValid;
   }
 
   async advance(){
     this.showSpinner(true);
     this.defineRoute(true);
     await this.router.navigate([`register/initial/${this.currentRoute}`]);
-    setTimeout(() => {
-      this.showSpinner(false);
-    }, 5000);
+    this.defineCardInfo();
+    this.showSpinner(false);
   }
 
   async back(){
     this.showSpinner(true);
     this.defineRoute(false);
     await this.router.navigate([`register/initial/${this.currentRoute}`]);
+    this.defineCardInfo();
     this.showSpinner(false);
   }
 
@@ -75,11 +83,11 @@ export class RegisterInitialComponent implements OnInit {
         break;
       case RegisterRouteEnum.Localization:
         this.title = "ÓTIMO";
-        this.description = "Agora insira sua localidade";
+        this.description = "Agora insira sua localidade: Estado e Cidade";
         break;
       case RegisterRouteEnum.LoginPassword:
         this.title = "ESTÁ QUASE ACABANDO!";
-        this.description = "Insira uma senha que será usada como login";
+        this.description = "Insira seu email e uma senha que será usada como login";
         break;
       default:
         this.title = "SEJA BEM VINDO";
@@ -101,7 +109,7 @@ export class RegisterInitialComponent implements OnInit {
         if(next) {
           this.currentRoute = RegisterRouteEnum.LoginPassword;
           this.bloquedBtnBack(false);
-          this.bloquedBtnAdvance(true);
+          this.bloquedBtnAdvance(!this.loginRegister?.formIsValid);
         }
         else {
           this.currentRoute = RegisterRouteEnum.Contact;
